@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Твой остров спокойствия 🌴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые переменные */
+        :root {
+            --primary: #6a89cc;
+            --secondary: #82ccdd;
+            --accent: #f8c291;
+            --success: #78e08f;
+            --peace: #b8e994;
+            --love: #fd79a8;
+            --light: #f7f1e3;
+            --dark: #2c3e50;
+            --sand: #f6e58d;
+            --water: #38ada9;
+        }
+
+        /* Сброс и базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Comic Neue', 'Segoe UI', cursive;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Анимированные облака на фоне */
+        .clouds {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            animation: floatClouds 30s infinite linear;
+            opacity: 0.7;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud::after {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: 20px;
+        }
+
+        @keyframes floatClouds {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Контейнер игры - остров */
+        .island-container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--light);
+            border-radius: 40px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.8),
+                inset 0 4px 20px rgba(255, 255, 255, 0.5);
+            border: 3px solid var(--sand);
+            animation: islandAppear 1.2s ease-out;
+            overflow: hidden;
+        }
+
+        @keyframes islandAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Волны вокруг острова */
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--water);
+            border-radius: 40px 40px 0 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' fill='%2338ada9'%3E%3Cpath d='M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,85.3C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z'/%3E%3C/svg%3E");
+            animation: waveAnimation 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -5s;
+            opacity: 0.4;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: -10s;
+            opacity: 0.2;
+        }
+
+        @keyframes waveAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Заголовок */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::before {
+            content: '🌴';
+            position: absolute;
+            left: -50px;
+            top: 0;
+            animation: palmSway 4s ease-in-out infinite;
+        }
+
+        .title::after {
+            content: '🌸';
+            position: absolute;
+            right: -50px;
+            top: 0;
+            animation: flowerBloom 3s ease-in-out infinite;
+        }
+
+        @keyframes palmSway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes flowerBloom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        /* Зоны острова */
+        .island-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .zone {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .zone:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .zone-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .zone:hover .zone-icon {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .zone-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .zone-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Панель ресурсов */
+        .resources-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .resource-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .resource-label {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Сообщения поддержки */
+        .support-messages {
+            background: linear-gradient(135deg, var(--peace), var(--success));
+            border-radius: 25px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-messages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+            animation: backgroundShift 20s linear infinite;
+        }
+
+        .support-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .support-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Модальные окна для зон */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: modalAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 3px solid var(--accent);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .modal-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Интерактивные задания */
+        .task {
+            background: rgba(248, 194, 145, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .task-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .task-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .task-button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(106, 137, 204, 0.3);
+        }
+
+        .task-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(106, 137, 204, 0.5);
+        }
+
+        /* Дневник благодарности */
+        .gratitude-journal {
+            background: rgba(120, 224, 143, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .journal-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 20px;
+            border: 2px solid var(--peace);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            margin: 15px 0;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .journal-input:focus {
+            outline: none;
+            border-color: var(--success);
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .footer-heart {
+            color: var(--love);
+            animation: heartBeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* Анимации для ресурсов */
+        @keyframes resourceGain {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .title::before, .title::after { display: none; }
+            .island-zones { grid-template-columns: 1fr; }
+            .resources-panel { flex-direction: column; align-items: center; }
+            .resource { min-width: 100px; }
+        }
+
+        /* Мини-анимация для фона */
+        @keyframes backgroundShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Облака на фоне -->
+<div class="clouds" id="clouds"></div>
+
+<!-- Контейнер острова -->
+<div class="island-container">
+    <!-- Волны -->
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Заголовок -->
+    <div class="header">
+        <h1 class="title">Твой остров спокойствия</h1>
+        <p class="subtitle">Это место, созданное специально для тебя. Здесь ты важна, ценна и любима.</p>
+        <p class="subtitle">Каждая зона острова поможет тебе почувствовать себя лучше 💖</p>
+    </div>
+
+    <!-- Зоны острова -->
+    <div class="island-zones">
+        <!-- Сад спокойствия -->
+        <div class="zone" id="gardenZone" data-zone="garden">
+            <span class="zone-icon">🌱</span>
+            <h3 class="zone-title">Сад спокойствия</h3>
+            <p class="zone-description">Посади цветок спокойствия и наблюдай, как он растёт</p>
+        </div>
+
+        <!-- Озеро отражений -->
+        <div class="zone" id="lakeZone" data-zone="lake">
+            <span class="zone-icon">🌊</span>
+            <h3 class="zone-title">Озеро отражений</h3>
+            <p class="zone-description">Посмотри на своё отражение и увидь свою красоту</p>
+        </div>
+
+        <!-- Гора достижений -->
+        <div class="zone" id="mountainZone" data-zone="mountain">
+            <span class="zone-icon">⛰️</span>
+            <h3 class="zone-title">Гора достижений</h3>
+            <p class="zone-description">Отметь свои маленькие и большие победы</p>
+        </div>
+
+        <!-- Пещера тишины -->
+        <div class="zone" id="caveZone" data-zone="cave">
+            <span class="zone-icon">🕯️</span>
+            <h3 class="zone-title">Пещера тишины</h3>
+            <p class="zone-description">Отдохни от шума и найди внутренний покой</p>
+        </div>
+    </div>
+
+    <!-- Панель ресурсов -->
+    <div class="resources-panel">
+        <div class="resource">
+            <span class="resource-icon" id="calmIcon">😌</span>
+            <div class="resource-value" id="calmValue">100</div>
+            <div class="resource-label">Уровень спокойствия</div>
+        </div>
+        <div class="resource">
+            <span class="resource-icon" id="loveIcon">❤️</span>
+            <div class="resource-value" id="loveValue">100</div>
+            <div class="resource-label">Забота о себе</div>
+        </div>
+        <div class="resource">
+            <span class="resource-icon" id="strengthIcon">💪</span>
+            <div class="resource-value" id="strengthValue">100</div>
+            <div class="resource-label">Внутренняя сила</div>
+        </div>
+        <div class="resource">
+            <span class="resource-icon" id="bloomIcon">🌸</span>
+            <div class="resource-value" id="bloomValue">5</div>
+            <div class="resource-label">Цветущие цветы</div>
+        </div>
+    </div>
+
+    <!-- Сообщения поддержки -->
+    <div class="support-messages">
+        <h3 class="support-title">Ты важна. Ты ценна. Ты любима.</h3>
+        <p class="support-text" id="supportText">Каждый твой вдох имеет значение. Ты - именно та, кем должна быть.</p>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+        Этот остров существует, потому что ты существуешь.
+        <span class="footer-heart">❤️</span>
+    </div>
+</div>
+
+<!-- Модальные окна для каждой зоны -->
+<div class="modal" id="gardenModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('gardenModal')">✕</button>
+        <span class="modal-icon">🌱</span>
+        <h2 class="modal-title">Сад спокойствия</h2>
+        <p class="modal-text">В этом саду ты можешь выращивать цветы спокойствия. Каждый раз, когда ты чувствуешь тревогу, посади новый цветок.</p>
+        
+        <div class="task">
+            <h4 class="task-title">Задание: Дыхание цветка</h4>
+            <p class="task-description">Закрой глаза. Вдохни через нос на 4 счёта, задержи дыхание на 4 счёта, выдохни через рот на 6 счётов. Повтори 3 раза.</p>
+            <button class="task-button" onclick="completeTask('garden')">Выполнить дыхание</button>
+        </div>
+
+        <div class="gratitude-journal">
+            <h4 class="task-title">За что я благодарна сегодня?</h4>
+            <textarea class="journal-input" id="gardenJournal" placeholder="Напиши 3 вещи, за которые ты благодарна сегодня..."></textarea>
+            <button class="task-button" onclick="saveGratitude('garden')">Сохранить благодарность</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="lakeModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('lakeModal')">✕</button>
+        <span class="modal-icon">🌊</span>
+        <h2 class="modal-title">Озеро отражений</h2>
+        <p class="modal-text">Посмотри в спокойные воды озера. Что ты видишь? Красивую, сильную, уникальную девушку, которая заслуживает любви и уважения.</p>
+        
+        <div class="task">
+            <h4 class="task-title">Задание: Позитивные аффирмации</h4>
+            <p class="task-description">Повтори вслух эти слова: "Я достойна любви. Я достаточно хороша. Я принимаю себя такой, какая я есть."</p>
+            <button class="task-button" onclick="completeTask('lake')">Произнести аффирмации</button>
+        </div>
+
+        <div class="task">
+            <h4 class="task-title">Что я люблю в себе?</h4>
+            <textarea class="journal-input" id="lakeJournal" placeholder="Напиши 5 качеств, которые ты ценишь в себе..."></textarea>
+            <button class="task-button" onclick="saveSelfLove('lake')">Сохранить любовь к себе</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mountainModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('mountainModal')">✕</button>
+        <span class="modal-icon">⛰️</span>
+        <h2 class="modal-title">Гора достижений</h2>
+        <p class="modal-text">Каждый день ты покоряешь маленькие горы. Отметь свои победы - они важны, какими бы маленькими они ни казались.</p>
+        
+        <div class="task">
+            <h4 class="task-title">Задание: Отметь свои победы сегодня</h4>
+            <p class="task-description">Что ты сделала сегодня, даже если это кажется маленьким? Встала с постели? Улыбнулась? Сделала что-то хорошее для себя?</p>
+            <button class="task-button" onclick="completeTask('mountain')">Отметить победы</button>
+        </div>
+
+        <div class="gratitude-journal">
+            <h4 class="task-title">Мои достижения этой недели:</h4>
+            <textarea class="journal-input" id="mountainJournal" placeholder="Запиши 3 своих достижения за эту неделю..."></textarea>
+            <button class="task-button" onclick="saveAchievements('mountain')">Сохранить достижения</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="caveModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('caveModal')">✕</button>
+        <span class="modal-icon">🕯️</span>
+        <h2 class="modal-title">Пещера тишины</h2>
+        <p class="modal-text">Это твоё убежище от шума мира. Здесь ты можешь просто быть. Ничего не делать. Просто дышать и существовать.</p>
+        
+        <div class="task">
+            <h4 class="task-title">Задание: 5-минутная медитация</h4>
+            <p class="task-description">Сядь удобно. Закрой глаза. Сосредоточься на своём дыхании. Если мысли приходят, просто замечай их и возвращайся к дыханию.</p>
+            <button class="task-button" onclick="startMeditation()">Начать медитацию</button>
+        </div>
+
+        <div class="task">
+            <h4 class="task-title">Что я чувствую прямо сейчас?</h4>
+            <textarea class="journal-input" id="caveJournal" placeholder="Опиши свои чувства без осуждения..."></textarea>
+            <button class="task-button" onclick="saveFeelings('cave')">Принять свои чувства</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно медитации -->
+<div class="modal" id="meditationModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="stopMeditation()">✕</button>
+        <span class="modal-icon">🧘‍♀️</span>
+        <h2 class="modal-title">Медитация спокойствия</h2>
+        <div class="meditation-timer" id="meditationTimer">05:00</div>
+        <p class="modal-text" id="meditationInstruction">Сосредоточься на своём дыхании. Вдох... Выдох...</p>
+        <div class="breathing-circle" id="breathingCircle" style="width: 100px; height: 100px; background: var(--primary); border-radius: 50%; margin: 30px auto; transition: transform 4s ease-in-out;"></div>
+        <button class="task-button" onclick="stopMeditation()">Завершить медитацию</button>
+    </div>
+</div>
+
+<script>
+    // Игровые переменные
+    let resources = {
+        calm: 100,
+        love: 100,
+        strength: 100,
+        bloom: 5
+    };
+
+    let completedTasks = [];
+    const supportMessages = [
+        "Ты заслуживаешь быть счастливой именно сейчас, а не когда-то потом.",
+        "Твои чувства важны. Твои потребности важны. Ты важна.",
+        "Ты сильнее, чем думаешь. Ты справишься.",
+        "Позволь себе просто быть. Ты достаточно хороша такой, какая ты есть.",
+        "Каждый твой вдох имеет значение. Ты — именно та, кем должна быть.",
+        "Ты не одна. Я здесь, с тобой, даже если мы не рядом физически.",
+        "Твоё сердце знает, что тебе нужно. Доверься ему.",
+        "Сегодня — это новый день. Новые возможности. Новое начало.",
+        "Ты делаешь всё, что можешь, и этого достаточно.",
+        "Ты — произведение искусства в процессе создания."
+    ];
+
+    // Инициализация
+    function initIsland() {
+        createClouds();
+        updateResourcesDisplay();
+        startSupportMessagesRotation();
+        
+        // Обработчики для зон
+        document.querySelectorAll('.zone').forEach(zone => {
+            zone.addEventListener('click', function() {
+                const zoneType = this.dataset.zone;
+                openZoneModal(zoneType);
+            });
+        });
+    }
+
+    // Создание облаков
+    function createClouds() {
+        const cloudsContainer = document.getElementById('clouds');
+        for (let i = 0; i < 5; i++) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.style.top = `${Math.random() * 70 + 10}%`;
+            cloud.style.width = `${Math.random() * 200 + 100}px`;
+            cloud.style.height = '60px';
+            cloud.style.animationDuration = `${Math.random() * 20 + 20}s`;
+            cloud.style.animationDelay = `${Math.random() * 20}s`;
+            cloudsContainer.appendChild(cloud);
+        }
+    }
+
+    // Открытие модального окна зоны
+    function openZoneModal(zoneType) {
+        const modalId = `${zoneType}Modal`;
+        document.getElementById(modalId).style.display = 'flex';
+        
+        // Добавляем ресурсы за посещение зоны
+        addResource('calm', 5);
+        addResource('love', 3);
+    }
+
+    // Закрытие модального окна
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Добавление ресурсов
+    function addResource(resourceType, amount) {
+        resources[resourceType] = Math.min(100, resources[resourceType] + amount);
+        if (resourceType === 'bloom') {
+            resources[resourceType] += amount;
+        }
+        updateResourcesDisplay();
+        
+        // Анимация иконки ресурса
+        const icon = document.getElementById(`${resourceType}Icon`);
+        icon.style.animation = 'resourceGain 0.5s ease';
+        setTimeout(() => {
+            icon.style.animation = '';
+        }, 500);
+    }
+
+    // Обновление отображения ресурсов
+    function updateResourcesDisplay() {
+        document.getElementById('calmValue').textContent = resources.calm;
+        document.getElementById('loveValue').textContent = resources.love;
+        document.getElementById('strengthValue').textContent = resources.strength;
+        document.getElementById('bloomValue').textContent = resources.bloom;
+        
+        // Изменение цвета в зависимости от уровня
+        updateResourceColor('calm', resources.calm);
+        updateResourceColor('love', resources.love);
+        updateResourceColor('strength', resources.strength);
+    }
+
+    // Обновление цвета ресурсов
+    function updateResourceColor(resourceType, value) {
+        const element = document.getElementById(`${resourceType}Value`);
+        if (value > 70) {
+            element.style.color = '#78e08f'; // Зелёный
+        } else if (value > 40) {
+            element.style.color = '#f8c291'; // Оранжевый
+        } else {
+            element.style.color = '#fd79a8'; // Розовый
+        }
+    }
+
+    // Завершение задания
+    function completeTask(zoneType) {
+        if (!completedTasks.includes(zoneType)) {
+            completedTasks.push(zoneType);
+            
+            // Награда за задание
+            addResource('calm', 15);
+            addResource('strength', 10);
+            addResource('love', 8);
+            
+            if (zoneType === 'garden') {
+                addResource('bloom', 1);
+            }
+            
+            // Показать сообщение об успехе
+            showTaskCompleteMessage(zoneType);
+        }
+    }
+
+    // Сообщение о завершении задания
+    function showTaskCompleteMessage(zoneType) {
+        const messages = {
+            garden: "Отличная работа! Твой сад спокойствия стал ещё прекраснее.",
+            lake: "Ты прекрасна! Помни это каждый день.",
+            mountain: "Ты покорила ещё одну вершину! Я горжусь тобой.",
+            cave: "Ты дала себе время на отдых. Это важно."
+        };
+        
+        alert(messages[zoneType] || "Молодец! Ты справилась!");
+    }
+
+    // Сохранение благодарности
+    function saveGratitude(zoneType) {
+        const textarea = document.getElementById(`${zoneType}Journal`);
+        if (textarea.value.trim()) {
+            addResource('love', 10);
+            addResource('calm', 8);
+            textarea.value = '';
+            alert("Благодарность сохранена в твоём саду спокойствия 💖");
+        }
+    }
+
+    // Сохранение любви к себе
+    function saveSelfLove(zoneType) {
+        const textarea = document.getElementById(`${zoneType}Journal`);
+        if (textarea.value.trim()) {
+            addResource('love', 15);
+            addResource('strength', 12);
+            textarea.value = '';
+            alert("Любовь к себе — самый важный ресурс. Ты молодец! 🌟");
+        }
+    }
+
+    // Сохранение достижений
+    function saveAchievements(zoneType) {
+        const textarea = document.getElementById(`${zoneType}Journal`);
+        if (textarea.value.trim()) {
+            addResource('strength', 20);
+            addResource('calm', 10);
+            textarea.value = '';
+            alert("Твои достижения занесены на вершину горы! 🏔️");
+        }
+    }
+
+    // Сохранение чувств
+    function saveFeelings(zoneType) {
+        const textarea = document.getElementById(`${zoneType}Journal`);
+        if (textarea.value.trim()) {
+            addResource('calm', 12);
+            addResource('love', 8);
+            textarea.value = '';
+            alert("Принятие своих чувств — это признак силы. Ты справляешься. 🕯️");
+        }
+    }
+
+    // Медитация
+    let meditationInterval;
+    let meditationTime = 300; // 5 минут в секундах
+    let isBreathingIn = true;
+
+    function startMeditation() {
+        closeModal('caveModal');
+        document.getElementById('meditationModal').style.display = 'flex';
+        
+        // Запуск таймера
+        updateMeditationTimer();
+        meditationInterval = setInterval(() => {
+            meditationTime--;
+            updateMeditationTimer();
+            
+            // Смена инструкций
+            if (meditationTime % 10 === 0) {
+                updateMeditationInstruction();
+            }
+            
+            // Дыхательная анимация
+            animateBreathing();
+            
+            // Завершение медитации
+            if (meditationTime <= 0) {
+                stopMeditation();
+                alert("Отличная медитация! Ты подарила себе 5 минут покоя. 🧘‍♀️");
+                addResource('calm', 25);
+                addResource('strength', 20);
+            }
+        }, 1000);
+    }
+
+    function updateMeditationTimer() {
+        const minutes = Math.floor(meditationTime / 60);
+        const seconds = meditationTime % 60;
+        document.getElementById('meditationTimer').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function updateMeditationInstruction() {
+        const instructions = [
+            "Сосредоточься на своём дыхании. Вдох... Выдох...",
+            "Почувствуй, как воздух входит и выходит из твоих лёгких.",
+            "Если мысли приходят, просто заметь их и вернись к дыханию.",
+            "Ты в безопасности. Ты здесь и сейчас.",
+            "Позволь себе просто быть. Ничего не делать.",
+            "Ты заслуживаешь этого момента покоя."
+        ];
+        
+        const randomInstruction = instructions[Math.floor(Math.random() * instructions.length)];
+        document.getElementById('meditationInstruction').textContent = randomInstruction;
+    }
+
+    function animateBreathing() {
+        const circle = document.getElementById('breathingCircle');
+        if (isBreathingIn) {
+            circle.style.transform = 'scale(1.5)';
+            isBreathingIn = false;
+        } else {
+            circle.style.transform = 'scale(1)';
+            isBreathingIn = true;
+        }
+    }
+
+    function stopMeditation() {
+        clearInterval(meditationInterval);
+        document.getElementById('meditationModal').style.display = 'none';
+        meditationTime = 300; // Сброс таймера
+    }
+
+    // Ротация поддерживающих сообщений
+    function startSupportMessagesRotation() {
+        let messageIndex = 0;
+        const supportText = document.getElementById('supportText');
+        
+        setInterval(() => {
+            messageIndex = (messageIndex + 1) % supportMessages.length;
+            supportText.style.opacity = 0;
+            
+            setTimeout(() => {
+                supportText.textContent = supportMessages[messageIndex];
+                supportText.style.opacity = 1;
+            }, 500);
+            
+        }, 8000); // Смена каждые 8 секунд
+    }
+
+    // Автоматическое добавление ресурсов со временем
+    setInterval(() => {
+        addResource('calm', 1);
+        addResource('love', 1);
+        
+        // Случайные события
+        if (Math.random() < 0.1) { // 10% шанс
+            const events = [
+                () => { addResource('bloom', 1); alert("В твоём саду вырос новый цветок! 🌸"); },
+                () => { addResource('strength', 5); alert("Ты чувствуешь прилив внутренней силы! 💪"); },
+                () => { 
+                    resources.calm = Math.min(100, resources.calm + 10);
+                    resources.love = Math.min(100, resources.love + 10);
+                    updateResourcesDisplay();
+                    alert("На острове наступил особенно спокойный день. ☀️");
+                }
+            ];
+            events[Math.floor(Math.random() * events.length)]();
+        }
+    }, 30000); // Каждые 30 секунд
+
+    // Инициализация при загрузке
+    window.addEventListener('DOMContentLoaded', initIsland);
+
+    // Горячие клавиши
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+        if (e.key === '1') openZoneModal('garden');
+        if (e.key === '2') openZoneModal('lake');
+        if (e.key === '3') openZoneModal('mountain');
+        if (e.key === '4') openZoneModal('cave');
+    });
+</script>
+</body>
+</html>
