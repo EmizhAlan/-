@@ -2,103 +2,93 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Для тебя ❤️</title>
+    <title>Небольшой секрет</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            font-family: Arial, sans-serif;
+            background: #f6f6f6;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-family: "Segoe UI", sans-serif;
-            color: #333;
+            align-items: center;
+            height: 100vh;
         }
-
         .card {
-            background: #ffffff;
-            padding: 40px;
-            max-width: 500px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
-            animation: fadeIn 1.5s ease;
         }
-
         h1 {
-            margin-bottom: 20px;
-            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
-
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 25px;
+        .cipher {
+            font-family: monospace;
+            background: #eee;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
         }
-
-        button {
-            background: #ee6f8e;
-            border: none;
-            padding: 12px 25px;
-            color: white;
+        input {
+            padding: 8px;
+            width: 60px;
+            text-align: center;
             font-size: 16px;
-            border-radius: 30px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 15px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
-
-        button:hover {
-            background: #d85c79;
-        }
-
-        .hidden {
-            display: none;
-            margin-top: 25px;
+        .result {
+            margin-top: 20px;
             font-size: 18px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h1>Привет красотулька ❤️</h1>
-    <p>
-        Я тебя очень люблю пупсик.  
-        Ты настолько сильно наполняешь мою жизнь красками, что мне хочется тебя завоёвывать снова и снова.
-    </p>
+    <h1>Небольшой секрет для тебя</h1>
 
-    <button onclick="showLove()">Нажми сюда</button>
-
-    <div id="loveText" class="hidden">
-        <p>
-            Ты для меня не просто человек рядом.  
-            Ты — тот, с кем мне спокойно, тепло и по-настоящему хочется жить.
-        </p>
-        <p>
-            Я ценю тебя, твои чувства, твою искренность и твоё присутствие в моей жизни.
-            Мне хорошо с тобой быть собой.
-        </p>
-        <p>
-            Я люблю тебя ❤️
-        </p>
+    <div class="cipher" id="cipherText">
+        Л тювюё жпяпч, ч тювюё фдчо рдчп.
     </div>
+
+    <p>Подсказка: простой сдвиг букв</p>
+
+    <input type="number" id="shift" value="1" min="1" max="33">
+    <br>
+    <button onclick="decode()">Расшифровать</button>
+
+    <div class="result" id="result"></div>
 </div>
 
 <script>
-    function showLove() {
-        document.getElementById("loveText").classList.remove("hidden");
+const alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+
+function decode() {
+    const shift = parseInt(document.getElementById("shift").value);
+    const text = document.getElementById("cipherText").innerText.toLowerCase();
+    let result = "";
+
+    for (let char of text) {
+        const index = alphabet.indexOf(char);
+        if (index === -1) {
+            result += char;
+        } else {
+            let newIndex = index - shift;
+            if (newIndex < 0) newIndex += alphabet.length;
+            result += alphabet[newIndex];
+        }
     }
+
+    document.getElementById("result").innerText = result;
+}
 </script>
 
 </body>
